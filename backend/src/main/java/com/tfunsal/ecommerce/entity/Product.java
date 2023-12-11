@@ -1,6 +1,7 @@
 package com.tfunsal.ecommerce.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tfunsal.ecommerce.dto.ProductDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -32,4 +33,14 @@ public class Product {
     @JsonIgnore
     private Category category;
 
+    public ProductDto getDto(){
+        ProductDto productDto = new ProductDto();
+        productDto.setId(id);
+        productDto.setName(name);
+        productDto.setDescription(description);
+        productDto.setPrice(price);
+        productDto.setByteImage(image);
+        productDto.setCategoryId(category.getId());
+        return productDto;
+    }
 }
