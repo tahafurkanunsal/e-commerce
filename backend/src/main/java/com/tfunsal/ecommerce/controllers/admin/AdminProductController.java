@@ -1,6 +1,7 @@
 package com.tfunsal.ecommerce.controllers.admin;
 
 import com.tfunsal.ecommerce.dto.ProductDto;
+import com.tfunsal.ecommerce.entity.Product;
 import com.tfunsal.ecommerce.services.admin.product.AdminProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,5 +36,14 @@ public class AdminProductController {
     public ResponseEntity<List<ProductDto>> getAllProductsByName(@PathVariable String title){
         List<ProductDto> productDtos = adminProductService.getAllProductsByName(title);
         return ResponseEntity.ok(productDtos);
+    }
+
+    @DeleteMapping("/product/{productId}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId){
+        boolean deleted = adminProductService.deleteProduct(productId);
+        if (deleted){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
